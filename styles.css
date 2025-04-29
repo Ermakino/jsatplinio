@@ -1,8 +1,4 @@
-@font-face {
-    font-family: ACC;
-    src: url('ACC.ttf');
-}
-
+/* Impostazioni di base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -19,11 +15,14 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    font-size: 1rem;
+    text-align: center; /* Aggiungi il text-align center per migliorare la visualizzazione su dispositivi mobili */
 }
 
+/* Contenitore principale */
 .container {
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 30px;
+    padding: 20px;
     max-width: 600px;
     width: 100%;
     border-radius: 12px;
@@ -31,6 +30,7 @@ body {
     position: relative;
 }
 
+/* Titolo */
 h1 {
     text-align: center;
     margin-bottom: 25px;
@@ -38,20 +38,25 @@ h1 {
     color: #333;
 }
 
+/* Contatore (modificato per visualizzazione migliore su mobile) */
 .counter {
+    font-size: 1rem;
+    color: #555;
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 1rem;
-    color: #555;
+    display: inline-block;
+    text-align: right;
 }
 
+/* Domanda */
 .question {
     font-size: 1.3rem;
     margin-bottom: 20px;
     color: #222;
 }
 
+/* Opzioni */
 .options {
     display: flex;
     flex-direction: column;
@@ -59,6 +64,7 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Opzione */
 .option {
     display: flex;
     align-items: center;
@@ -93,6 +99,7 @@ h1 {
     background-color: #00ccff;
 }
 
+/* Pulsanti */
 #next, #restart {
     display: inline-block;
     width: 100%;
@@ -110,6 +117,7 @@ h1 {
     background-color: #218838;
 }
 
+/* Nascondere gli elementi */
 .hidden {
     display: none;
 }
@@ -127,7 +135,7 @@ h1 {
     color: #007bff;
 }
 
-/* Animazione fade-in */
+/* Animazioni */
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -139,14 +147,62 @@ h1 {
     transform: translateY(0);
 }
 
-/* Animazione fade-out */
-.fade-out {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+/* Media Queries per dispositivi mobili */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .question {
+        font-size: 1.2rem;
+    }
+
+    .option {
+        font-size: 1rem;
+        padding: 10px 14px;
+    }
+
+    #next, #restart {
+        padding: 14px;
+        font-size: 1rem;
+    }
+
+    .counter {
+        font-size: 1rem;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
 }
 
-.fade-out.hidden {
-    opacity: 0;
-    transform: translateY(20px);
+/* Media Queries per dispositivi molto piccoli */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .question {
+        font-size: 1.1rem;
+    }
+
+    .option {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
+    #next, #restart {
+        padding: 16px;
+    }
+
+    .counter {
+        font-size: 0.9rem; /* Ulteriore riduzione per schermi molto piccoli */
+    }
 }
