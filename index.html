@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container fade-in" id="quizContainer">
+        <h1>Quiz Game</h1>
+        <div class="counter" id="counter">Domande: 0 / 3</div>
+        <div id="quiz">
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <button id="next" class="hidden">Prossima Domanda</button>
+        </div>
+        <div id="result" class="hidden">
+            <h2>Risultato: <span id="score"></span></h2>
+            <button id="restart">Ricomincia</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

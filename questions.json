@@ -1,0 +1,22 @@
+[
+    {
+        "question": "Qual è la capitale d'Italia?",
+        "options": ["Roma", "Milano", "Napoli", "Torino"],
+        "answer": 0
+    },
+    {
+        "question": "Qual è il colore del cielo?",
+        "options": ["Blu", "Verde", "Rosso", "Giallo"],
+        "answer": 0
+    },
+    {
+        "question": "Chi ha scritto 'La Divina Commedia'?",
+        "options": ["Dante Alighieri", "Petrarca", "Boccaccio", "Manzoni"],
+        "answer": 0
+    },
+    {
+        "question": "Di che colore era il cavallo bianco di napoleon?",
+        "options": ["Rosso", "Giallo", "Turchese", "Bianco"],
+        "answer": 3
+    }
+]
