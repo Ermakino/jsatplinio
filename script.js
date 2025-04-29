@@ -47,7 +47,6 @@ fetch('questions.json')
 // Fade-in quando la pagina carica
 window.addEventListener('DOMContentLoaded', () => {
     quizContainer.classList.add('fade-in');
-
     setTimeout(() => {
         quizContainer.classList.add('visible');
     }, 100);  // Ritardo di 100ms per iniziare la transizione
@@ -62,7 +61,7 @@ function startQuiz() {
     resultElement.classList.add('hidden');
     questionElement.classList.remove('hidden');
     optionsElement.classList.remove('hidden');
-    nextButton.classList.add('hidden');
+    //nextButton.classList.add('hidden');
 
     showQuestion();
 }
@@ -72,7 +71,7 @@ function showQuestion() {
     questionElement.textContent = question.question;
     optionsElement.innerHTML = '';
     selectedOptionIndex = null;
-    nextButton.classList.add('hidden');
+    //nextButton.classList.add('hidden');
     updateCounter();
 
     question.options.forEach((option, index) => {
@@ -134,9 +133,7 @@ function showResult() {
     resultElement.classList.remove('hidden');
     
     // Visualizza il punteggio e le emoji
-    scoreElement.innerHTML = `${score} di ${questions.length} / ${emojis.join(' ')}`;
+    scoreElement.innerHTML = `${score} risposte giuste su ${questions.length} <br><br> ${emojis.join(' ')}`;
 }
-
-
 
 restartButton.addEventListener('click', startQuiz);
