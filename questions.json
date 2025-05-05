@@ -1,22 +1,77 @@
 [
     {
-        "question": "Qual è la capitale d'Italia?",
-        "options": ["Roma", "Milano", "Napoli", "Torino"],
-        "answer": 0
+        "question": "Qual è il piatto tipico di Napoli?",
+        "options": ["Risotto", "Lasagna", "Pizza", "Polenta"],
+        "answer": 2
     },
     {
-        "question": "Qual è il colore del cielo?",
-        "options": ["Blu", "Verde", "Rosso", "Giallo"],
-        "answer": 0
+        "question": "Qual è il famoso dolce natalizio italiano?",
+        "options": ["Tiramisù", "Panettone", "Cannoli", "Sfogliatella"],
+        "answer": 1
     },
     {
-        "question": "Chi ha scritto 'La Divina Commedia'?",
-        "options": ["Dante Alighieri", "Petrarca", "Boccaccio", "Manzoni"],
-        "answer": 0
+        "question": "Qual è il simbolo della città di Venezia?",
+        "options": ["Colosseo", "Gondola", "Duomo", "Torre di Pisa"],
+        "answer": 1
     },
     {
-        "question": "Di che colore era il cavallo bianco di napoleon?",
-        "options": ["Rosso", "Giallo", "Turchese", "Bianco"],
+        "question": "Qual è il colore della bandiera italiana?",
+        "options": ["Blu, Bianco e Rosso", "Verde, Bianco e Rosso", "Giallo, Rosso e Nero", "Verde, Giallo e Blu"],
+        "answer": 1
+    },
+    {
+        "question": "Qual è il famoso vino prodotto in Toscana?",
+        "options": ["Prosecco", "Barolo", "Lambrusco", "Chianti"],
+        "answer": 3
+    },
+    {
+        "question": "Qual è il nome del vulcano vicino a Napoli?",
+        "options": ["Etna", "Stromboli", "Vesuvio", "Vulcano"],
+        "answer": 2
+    },
+    {
+        "question": "Qual è il famoso festival di Venezia?",
+        "options": ["Sanremo", "Carnevale", "Ferragosto", "Palio di Siena"],
+        "answer": 1
+    },
+    {
+        "question": "Qual è il nome della torre inclinata famosa in Italia?",
+        "options": ["Torre di Milano", "Torre di Roma", "Torre di Pisa", "Torre di Firenze"],
+        "answer": 2
+    },
+    {
+        "question": "Qual è il famoso formaggio italiano con buchi?",
+        "options": ["Parmigiano", "Grana Padano", "Emmental", "Gorgonzola"],
+        "answer": 2
+    },
+    {
+        "question": "Qual è il nome del famoso lago nel nord Italia?",
+        "options": ["Lago Maggiore", "Lago di Garda", "Lago di Como", "Lago Trasimeno"],
+        "answer": 1
+    },
+    {
+        "question": "Qual è il famoso dolce italiano a base di mascarpone e caffè?",
+        "options": ["Cannoli", "Panna Cotta", "Tiramisù", "Zabaglione"],
+        "answer": 2
+    },
+    {
+        "question": "Qual è il nome della città famosa per il Palio?",
+        "options": ["Firenze", "Siena", "Roma", "Venezia"],
+        "answer": 1
+    },
+    {
+        "question": "Qual è il famoso museo d'arte a Firenze?",
+        "options": ["Musei Vaticani", "Pinacoteca di Brera", "Galleria degli Uffizi", "Museo Egizio"],
+        "answer": 2
+    },
+    {
+        "question": "Qual è il nome del famoso poeta italiano che ha scritto 'Il Canzoniere'?",
+        "options": ["Dante", "Boccaccio", "Manzoni", "Petrarca"],
+        "answer": 3
+    },
+    {
+        "question": "Qual è il nome del famoso teatro dell'opera a Milano?",
+        "options": ["San Carlo", "Fenice", "Regio", "La Scala"],
         "answer": 3
     }
 ]

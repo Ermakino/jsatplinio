@@ -3,26 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Game</title>
+    <title>Quiz Interactive</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
-    <div class="container fade-in" id="quizContainer">
-    <div class="counter" id="counter">Domande: 0 / 3</div>
-    <h1>Quiz Game</h1>
-        <div id="quiz">
-            <div class="question" id="question"></div>
-            <div class="options" id="options"></div>
-            <button id="next">Prossima Domanda</button>
-            <br>
-        </div>
-        <div id="result" class="hidden">
-            <h1>Risultato: <span id="score"></span></h2>
-            <br>
-            <br>
-            <button id="restart">Ricomincia</button>
+    <div class="container welcome-screen visible" id="welcomeScreen">
+        <div class="glass-card animate__animated animate__fadeIn">
+            <h1 class="title-gradient">Quiz Interactive</h1>
+            <div class="input-group">
+                <input type="text" id="userName" placeholder="Il tuo nome" class="styled-input">
+            </div>
+            <div class="input-group">
+                <label for="questionCount">Numero di domande: <span id="questionCountValue">3</span></label>
+                <input type="range" id="questionCount" min="3" max="10" value="3" class="styled-slider">
+            </div>
+            <div class="input-group center-button">
+                <button id="startGame" class="neon-button large-button">Inizia il Gioco</button>
+            </div>
         </div>
     </div>
+
+    <div class="container quiz-screen hidden" id="quizContainer">
+        <div class="header-bar">
+            <div id="playerName" class="player-name"></div>
+            <div class="counter" id="counter"></div>
+        </div>
+        <div class="quiz-content" id="quizContent">
+            <div id="question" class="question"></div>
+            <div id="options" class="options-grid"></div>
+        </div>
+        <div class="navigation">
+            <button id="next" class="neon-button hidden">
+                Continua
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            </button>
+        </div>
+        <div id="result" class="result-card hidden">
+            <div class="result-content animate__animated animate__fadeInUp">
+                <h2>Il Tuo Punteggio</h2>
+                <div id="score" class="score-display"></div>
+                <button id="restart" class="restart-button">
+                    <span>Rigioca</span>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <dialog id="scoreDialog">
+        <div class="dialog-content">
+            <h3>Nuovo Record!</h3>
+            <div class="trophy">🏆</div>
+            <p>Hai battuto il tuo miglior punteggio</p>
+            <button onclick="document.getElementById('scoreDialog').close()">Chiudi</button>
+        </div>
+    </dialog>
+
     <script src="script.js"></script>
 </body>
 </html>
