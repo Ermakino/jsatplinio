@@ -3,6 +3,7 @@ let playerName = "", totalQuestions = 3;
 let timerInterval;
 let timeLeft = 15;
 const totalTime = 15;
+let timerActive = false;
 
 const welcomeScreen = document.getElementById('welcomeScreen');
 const quizContainer = document.getElementById('quizContainer');
@@ -93,7 +94,7 @@ function showQuestion() {
         card.className = 'option-card animate__animated animate__fadeIn';
         card.innerHTML = `<div class="option-content">${opt}</div>`;
         card.addEventListener('click', () => {
-            clearInterval(timerInterval);
+            if (!timerActive) return;
             selectOption(card, i);
         });
         opts.appendChild(card);
@@ -102,12 +103,14 @@ function showQuestion() {
 
 function startTimer() {
     clearInterval(timerInterval);
+    timerActive = true;
     timerInterval = setInterval(() => {
         timeLeft--;
         updateTimerDisplay();
         
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
+            timerActive = false;
             timeUp();
         }
     }, 1000);
@@ -132,6 +135,9 @@ function updateTimerDisplay() {
 }
 
 function timeUp() {
+    clearInterval(timerInterval);
+    timerActive = false;
+    
     if (selectedOptionIndex === null) {
         const q = questions[currentQuestionIndex];
         const cards = document.querySelectorAll('.option-card');
@@ -140,20 +146,20 @@ function timeUp() {
                 card.classList.add('correct');
             }
         });
-        document.getElementById('next').disabled = true;
-        setTimeout(() => {
-            document.getElementById('next').disabled = false;
-            currentQuestionIndex++;
-            if (currentQuestionIndex < totalQuestions) {
-                showQuestion();
-            } else {
-                showResults();
-            }
-        }, 1500);
     }
+    
+    document.getElementById('next').disabled = true;
+    setTimeout(() => {
+        document.getElementById('next').disabled = false;
+        // Non avanziamo automaticamente alla prossima domanda
+        // Aspettiamo che l'utente prema Continua
+    }, 1500);
 }
 
 function selectOption(card, idx) {
+    if (!timerActive) return;
+    
+    // Non fermiamo più il timer qui
     document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected','correct','wrong'));
     card.classList.add('selected'); 
     selectedOptionIndex = idx;
@@ -161,16 +167,37 @@ function selectOption(card, idx) {
 }
 
 document.getElementById('next').addEventListener('click', () => {
-    if (selectedOptionIndex === null) { alert('Seleziona una risposta.'); return; }
-    const correct = questions[currentQuestionIndex].answer;
-    const cards = document.querySelectorAll('.option-card');
-    if (selectedOptionIndex === correct) { 
-        cards[correct].classList.add('correct'); 
-        score++; 
-    } else { 
-        cards[selectedOptionIndex].classList.add('wrong'); 
-        cards[correct].classList.add('correct'); 
+    if (selectedOptionIndex === null) { 
+        if (timeLeft <= 0) {
+            // Tempo scaduto senza selezione
+            const q = questions[currentQuestionIndex];
+            const cards = document.querySelectorAll('.option-card');
+            cards.forEach((card, i) => {
+                if (i === q.answer) {
+                    card.classList.add('correct');
+                }
+            });
+        } else {
+            alert('Seleziona una risposta.'); 
+            return;
+        }
+    } else {
+        // Mostra la risposta corretta/sbagliata
+        const correct = questions[currentQuestionIndex].answer;
+        const cards = document.querySelectorAll('.option-card');
+        if (selectedOptionIndex === correct) { 
+            cards[correct].classList.add('correct'); 
+            score++; 
+        } else { 
+            cards[selectedOptionIndex].classList.add('wrong'); 
+            cards[correct].classList.add('correct'); 
+        }
     }
+    
+    // Ferma il timer solo quando si preme Continua
+    clearInterval(timerInterval);
+    timerActive = false;
+    
     document.getElementById('next').disabled = true;
     setTimeout(() => {
         document.getElementById('next').disabled = false;
@@ -191,6 +218,7 @@ function updateCounter() {
 
 function showResults() {
     clearInterval(timerInterval);
+    timerActive = false;
     quizContent.classList.add('hidden');
     resultElement.classList.remove('hidden');
 
@@ -224,6 +252,7 @@ function showConfetti() {
 
 function restartGame() {
     clearInterval(timerInterval);
+    timerActive = false;
     resultElement.classList.add('hidden');
     toggleScreen(quizContainer, welcomeScreen);
     quizContent.classList.remove('hidden');
