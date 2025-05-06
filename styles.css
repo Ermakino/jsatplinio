@@ -124,12 +124,19 @@ body {
 .header-bar{ 
     display:flex; 
     justify-content:space-between;
+    align-items: center;
     padding-bottom:15px; 
     border-bottom:1px solid rgba(255,255,255,0.1);
     margin-bottom:30px;
+    gap: 15px;
 }
 .player-name{ font-size:1.2em; color:#90e0ef; }
-.counter{ font-size:1.1em; color:#ade8f4; }
+.counter{ 
+    font-size:1.1em; 
+    color:#ade8f4;
+    min-width: 50px;
+    text-align: right;
+}
 .question{ 
     font-size:1.4em; 
     background:rgba(0,0,0,0.2);
@@ -267,6 +274,93 @@ body {
     animation: bounce 0.5s;
 }
 
+/* Timer styles */
+.timer-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    max-width: 200px;
+}
+
+.timer-label {
+    color: #ade8f4;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.timer-bar {
+    flex-grow: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.timer-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #00b4d8, #90e0ef);
+    width: 100%;
+    transition: width 1s linear;
+}
+
+.timer-warning {
+    background: linear-gradient(90deg, #ff9e00, #ff6b00);
+}
+
+.timer-danger {
+    background: linear-gradient(90deg, #ff6b00, #e74c3c);
+}
+
+.timer-seconds {
+    color: #ade8f4;
+    font-size: 0.9em;
+    min-width: 20px;
+    text-align: right;
+}
+
+/* New Record Styles */
+.new-record {
+    background: rgba(0,0,0,0.3);
+    border: 2px solid #ffd700;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    position: relative;
+    animation: glow 2s infinite alternate;
+    display: none;
+}
+
+.new-record:not(.hidden) {
+    display: block;
+}
+
+.new-record h3 {
+    color: #ffd700;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.new-record p {
+    color: #fff;
+    font-size: 1.1em;
+}
+
+.trophy {
+    font-size: 3em;
+    margin: 10px 0;
+    animation: bounce 0.5s;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px -5px #ffd700;
+    }
+    to {
+        box-shadow: 0 0 20px 5px #ffd700;
+    }
+}
+
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -286,6 +380,15 @@ body {
     .styled-slider {
         margin: 10px 0;
     }
+    .header-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .timer-container {
+        order: 3;
+        width: 100%;
+        max-width: none;
+    }
 }
 
 @media(max-width: 480px) {
@@ -295,6 +398,15 @@ body {
     }
     #next.neon-button {
         padding: 14px 35px;
+        font-size: 1em;
+    }
+    .timer-label {
+        font-size: 0.8em;
+    }
+    .player-name {
+        font-size: 1em;
+    }
+    .counter {
         font-size: 1em;
     }
 }
