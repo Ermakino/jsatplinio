@@ -1,4 +1,4 @@
 # JS@Plinio
 <h1>*Da sistemare:*</h1>
-- Contatore in alto a destra
-- Pulsante continua in automatico alla fine del countdown
+<p>- Contatore in alto a destra</p>
+<p>- Pulsante continua in automatico alla fine del countdown</p>
