@@ -19,6 +19,26 @@ body {
     transition: opacity .5s, transform .5s;
     position: relative;
 }
+
+.high-score-display {
+    text-align: center;
+    margin-top: 20px;
+    color: #90e0ef;
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+#highScoreValue {
+    color: #00b4d8;
+    font-weight: bold;
+}
+.title-image {
+    width: 100%;
+    max-width: 300px; /* Regola in base alle dimensioni dell'immagine */
+    margin: 0 auto 30px;
+    display: block;
+}
+
 .container.visible { opacity: 1; transform: translateY(0); }
 .container.hidden { display: none; }
 .title-gradient { 
@@ -368,6 +388,22 @@ body {
     background-color: #f00;
     top: -10px;
     z-index: 999;
+}
+
+/* High Score Box */
+.high-score-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 2px solid #ffd700;
+    color: #ffd700;
+    font-size: 0.9em;
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    animation: glow 2s infinite alternate;
 }
 
 @keyframes confetti-fall {

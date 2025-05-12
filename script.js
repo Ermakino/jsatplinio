@@ -12,19 +12,31 @@ const userNameInput = document.getElementById('userName');
 const questionCountSlider = document.getElementById('questionCount');
 const questionCountValue = document.getElementById('questionCountValue');
 const playerNameDisplay = document.getElementById('playerName');
-const counterElement = document.getElementById('counter');
 const quizContent = document.getElementById('quizContent');
 const resultElement = document.getElementById('result');
 
-// Inizializza lo slider
-questionCountSlider.addEventListener('input', function() {
-    questionCountValue.textContent = this.value;
-});
-
+// Inizializza lo slider e l'high score
 document.addEventListener('DOMContentLoaded', () => {
+    questionCountSlider.value = 3;
+    questionCountValue.textContent = 3;
+    
+    // Inizializza l'high score
+    const savedScore = localStorage.getItem('highScore') || 0;
+    document.getElementById('highScoreValue').textContent = 
+    `${savedScore}/${savedScore}`; // Mostra X/X (dove X è il record)
+
+    // Aggiorna quando cambia lo slider
+    questionCountSlider.addEventListener('input', function() {
+        questionCountValue.textContent = this.value;
+        document.getElementById('highScoreValue').textContent = 
+            `${savedScore}/${this.value}`;
+    });
+
     startButton.addEventListener('click', startGame);
     document.getElementById('restart').addEventListener('click', restartGame);
-    userNameInput.addEventListener('keypress', e => { if (e.key === 'Enter') startGame(); });
+    userNameInput.addEventListener('keypress', e => { 
+        if (e.key === 'Enter') startGame(); 
+    });
 });
 
 async function startGame() {
@@ -43,11 +55,14 @@ async function startGame() {
         playerNameDisplay.textContent = `Giocatore: ${playerName}`;
         currentQuestionIndex = 0; 
         score = 0; 
+        updateCounter();
         showQuestion();
     } catch(err) {
         alert('Errore nel caricamento delle domande.');
         console.error(err);
-    } finally { startButton.disabled = false; }
+    } finally { 
+        startButton.disabled = false; 
+    }
 }
 
 function toggleScreen(hide, show) {
@@ -65,7 +80,7 @@ function toggleScreen(hide, show) {
                 </div>
                 <span id="timerSeconds" class="timer-seconds">15</span>
             </div>
-            <div class="counter" id="counter">1/${totalQuestions}</div>
+            <div class="counter" id="counter">Domanda: 1/${totalQuestions}</div>
         `;
     }
 }
@@ -84,7 +99,6 @@ function showQuestion() {
     selectedOptionIndex = null; 
     updateCounter();
     
-    // Reset timer
     timeLeft = totalTime;
     updateTimerDisplay();
     startTimer();
@@ -124,7 +138,6 @@ function updateTimerDisplay() {
         timerProgress.style.width = `${percentage}%`;
         timerSeconds.textContent = timeLeft;
         
-        // Cambia colore in base al tempo rimanente
         timerProgress.classList.remove('timer-warning', 'timer-danger');
         if (timeLeft <= 5) {
             timerProgress.classList.add('timer-danger');
@@ -151,15 +164,13 @@ function timeUp() {
     document.getElementById('next').disabled = true;
     setTimeout(() => {
         document.getElementById('next').disabled = false;
-        // Non avanziamo automaticamente alla prossima domanda
-        // Aspettiamo che l'utente prema Continua
+        document.getElementById('next').click();
     }, 1500);
 }
 
 function selectOption(card, idx) {
     if (!timerActive) return;
     
-    // Non fermiamo più il timer qui
     document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected','correct','wrong'));
     card.classList.add('selected'); 
     selectedOptionIndex = idx;
@@ -169,7 +180,6 @@ function selectOption(card, idx) {
 document.getElementById('next').addEventListener('click', () => {
     if (selectedOptionIndex === null) { 
         if (timeLeft <= 0) {
-            // Tempo scaduto senza selezione
             const q = questions[currentQuestionIndex];
             const cards = document.querySelectorAll('.option-card');
             cards.forEach((card, i) => {
@@ -182,7 +192,6 @@ document.getElementById('next').addEventListener('click', () => {
             return;
         }
     } else {
-        // Mostra la risposta corretta/sbagliata
         const correct = questions[currentQuestionIndex].answer;
         const cards = document.querySelectorAll('.option-card');
         if (selectedOptionIndex === correct) { 
@@ -194,7 +203,6 @@ document.getElementById('next').addEventListener('click', () => {
         }
     }
     
-    // Ferma il timer solo quando si preme Continua
     clearInterval(timerInterval);
     timerActive = false;
     
@@ -211,8 +219,9 @@ document.getElementById('next').addEventListener('click', () => {
 });
 
 function updateCounter() {
+    const counterElement = document.getElementById('counter');
     if (counterElement) {
-        counterElement.textContent = `${currentQuestionIndex + 1}/${totalQuestions}`;
+        counterElement.textContent = `Domanda: ${currentQuestionIndex + 1}/${totalQuestions}`;
     }
 }
 
@@ -222,7 +231,7 @@ function showResults() {
     quizContent.classList.add('hidden');
     resultElement.classList.remove('hidden');
 
-    const high = +localStorage.getItem('quizHighScore') || 0;
+    const currentHigh = parseInt(localStorage.getItem('highScore')) || 0;
     const acc = Math.round((score/totalQuestions)*100);
     
     const emoji = acc >= 50 ? '🎉' : '😢';
@@ -232,11 +241,19 @@ function showResults() {
         <div class="emoji-result">${emoji}</div>
     `;
 
-    if (score > high) {
-        localStorage.setItem('quizHighScore', score);
+    // Aggiorna l'high score
+    if (score > currentHigh) {
+        localStorage.setItem('highScore', score.toString());
         showConfetti();
         document.getElementById('newRecord').classList.remove('hidden');
+    } else {
+        document.getElementById('newRecord').classList.add('hidden');
     }
+
+    // Aggiorna la visualizzazione del punteggio più alto
+    const highScore = localStorage.getItem('highScore') || 0;
+document.getElementById('highScoreValue').textContent = 
+    `${highScore}/${highScore}`;
 }
 
 function showConfetti() {

@@ -10,24 +10,27 @@
 <body>
     <div class="container welcome-screen visible" id="welcomeScreen">
         <div class="glass-card animate__animated animate__fadeIn">
-            <h1 class="title-gradient">Little Big Italy dei poveri</h1>
+            <img src="LBIDP.png" alt="Little Big Italy dei poveri" class="title-image">
             <div class="input-group">
                 <input type="text" id="userName" placeholder="Inserisci il tuo nome..." class="styled-input">
             </div>
             <div class="input-group">
                 <label for="questionCount">Numero di domande: <span id="questionCountValue">3</span></label>
-                <input type="range" id="questionCount" min="3" max="10" value="3" class="styled-slider">
+                <input type="range" id="questionCount" min="3" max="10" value="3" class="styled-slider" style="width: 100%"> <!-- Forza larghezza corretta -->
             </div>
             <div class="input-group center-button">
                 <button id="startGame" class="neon-button large-button">Inizia il Gioco</button>
             </div>
+            <div class="high-score-display">
+    Punteggio più alto: <span id="highScoreValue">0/0</span>
+    </div>
         </div>
     </div>
 
     <div class="container quiz-screen hidden" id="quizContainer">
         <div class="header-bar">
             <div id="playerName" class="player-name"></div>
-            <div class="counter" id="counter"></div>
+            <div class="counter" id="counter">Domanda: 1/${totalQuestions}</div>
         </div>
         <div class="quiz-content" id="quizContent">
             <div id="question" class="question"></div>
