@@ -15,21 +15,15 @@ const playerNameDisplay = document.getElementById('playerName');
 const quizContent = document.getElementById('quizContent');
 const resultElement = document.getElementById('result');
 
-// Inizializza lo slider e l'high score
 document.addEventListener('DOMContentLoaded', () => {
     questionCountSlider.value = 3;
     questionCountValue.textContent = 3;
     
-    // Inizializza l'high score
-    const savedScore = localStorage.getItem('highScore') || 0;
-    document.getElementById('highScoreValue').textContent = 
-    `${savedScore}/${savedScore}`; // Mostra X/X (dove X è il record)
+    updateHighScoreDisplay();
 
-    // Aggiorna quando cambia lo slider
     questionCountSlider.addEventListener('input', function() {
         questionCountValue.textContent = this.value;
-        document.getElementById('highScoreValue').textContent = 
-            `${savedScore}/${this.value}`;
+        // Non aggiornare il display del high score qui
     });
 
     startButton.addEventListener('click', startGame);
@@ -38,6 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') startGame(); 
     });
 });
+
+// Funzione separata per aggiornare il display del punteggio massimo
+function updateHighScoreDisplay() {
+    const savedScore = localStorage.getItem('highScore') || 0;
+    const savedTotal = localStorage.getItem('highScoreTotal') || 3;
+    const percentage = Math.round((savedScore / savedTotal) * 100);
+    document.getElementById('highScoreValue').textContent = 
+        `${savedScore}/${savedTotal} (${percentage}%)`;
+}
 
 async function startGame() {
     resultElement.classList.add('hidden');
@@ -232,6 +235,7 @@ function showResults() {
     resultElement.classList.remove('hidden');
 
     const currentHigh = parseInt(localStorage.getItem('highScore')) || 0;
+    const currentTotal = parseInt(localStorage.getItem('highScoreTotal')) || totalQuestions;
     const acc = Math.round((score/totalQuestions)*100);
     
     const emoji = acc >= 50 ? '🎉' : '😢';
@@ -241,19 +245,34 @@ function showResults() {
         <div class="emoji-result">${emoji}</div>
     `;
 
-    // Aggiorna l'high score
-    if (score > currentHigh) {
+    // Verifica se questo è un nuovo record
+    let isNewRecord = false;
+    
+    // Se il punteggio è migliore o uguale al precedente, ma con un denominatore più grande
+    if (score > currentHigh || (score === currentHigh && totalQuestions > currentTotal)) {
         localStorage.setItem('highScore', score.toString());
+        localStorage.setItem('highScoreTotal', totalQuestions.toString());
+        isNewRecord = true;
+    }
+    
+    // Se è uguale ma con una percentuale migliore
+    const currentPercentage = (currentHigh / currentTotal) * 100;
+    const newPercentage = (score / totalQuestions) * 100;
+    if (score === currentHigh && newPercentage > currentPercentage) {
+        localStorage.setItem('highScore', score.toString());
+        localStorage.setItem('highScoreTotal', totalQuestions.toString());
+        isNewRecord = true;
+    }
+    
+    if (isNewRecord) {
         showConfetti();
         document.getElementById('newRecord').classList.remove('hidden');
     } else {
         document.getElementById('newRecord').classList.add('hidden');
     }
 
-    // Aggiorna la visualizzazione del punteggio più alto
-    const highScore = localStorage.getItem('highScore') || 0;
-document.getElementById('highScoreValue').textContent = 
-    `${highScore}/${highScore}`;
+    // Aggiorna il display del punteggio massimo
+    updateHighScoreDisplay();
 }
 
 function showConfetti() {
